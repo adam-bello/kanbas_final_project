@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<head>
+  <title>Assignments index</title>
+</head>
+
+<body>
+    <select>
+        <option selected value="SpeedGrader">SpeedGrader</option>
+     </select>
+
+     <hr align="left" style="width:200px"> 
+
+     <h3>Assignment Name</h3>
+
+     <input type="text" placeholder="A1 + ENV + HTML"/><br><br>
+     <textarea cols="20" rows="2" placeholder="This is the assignment description."></textarea><br><br>
+
+     <form id="assignment-fields">
+        <label for="points-text-fields">Points </label><br>
+        <input id="points-text-fields" placeholder="100"/><br><br>
+        <label for="assignment-group">Assignment Group </label><br>
+        <select id="assignment-group">
+            <option selected value="Assign">ASSIGNMENTS</option>
+        </select><br><br>
+        <label for="display-grade">Display Grade as</label><br>
+        <select id="display-grade">
+            <option selected value="Grade-Form">Percentage</option>
+        </select><br><br>
+        <label for="submission">Submission Type</label><br>
+        <select id="submission">
+            <option selected value="Submit">Online</option>
+        </select><br><br>
+
+        <label>Online Entry Options</label><br>
+        <input type="checkbox" value="text-entry" name="all-options-entry" id="text"/>
+        <label for="text">Text Entry</label><br>
+        <input type="checkbox" value="website-entry" name="all-options-entry" id="website"/>
+        <label for="website">Website URL</label><br>
+        <input type="checkbox" value="media-entry" name="all-options-entry" id="media"/>
+        <label for="media">Media Recordings</label><br>
+        <input type="checkbox" value="annotate-entry" name="all-options-entry" id="annotate"/>
+        <label for="annotate">Student Annotation</label><br>
+        <input type="checkbox" value="file-entry" name="all-options-entry" id="file"/>
+        <label for="file">File Uploads</label><br><br>
+
+        <label>Assign</label><br>
+        <label>Assign to</label><br>
+        <input type="text" placeholder="Everyone"/><br><br>
+
+        <label for="due-date">Due</label><br>
+        <input type="date" id="due-date" value="2021-01-01"/><br><br>
+
+        <label for="available">Available from</label><br>
+        <input type="date" id="available" value="2021-01-01"/><br><br>
+
+        <label for="until">Until</label><br>
+        <input type="date" id="until" value="2021-01-01"/> <br><br>
+
+     </form>
+
+     <a href="/Kanbas/Courses/Assignments/screen.html"><button type="button">Cancel</button></a>
+     <a href="/Kanbas/Courses/Assignments/screen.html"><button type="button">Save</button></a>
+
+
+  
+</body>
+
+
+</HTML>
