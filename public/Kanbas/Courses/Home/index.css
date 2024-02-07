@@ -1,0 +1,12 @@
+a[aria-expanded=true] .fa-angle-down {
+    display: none;
+ }
+
+ a[aria-expanded=false] .fa-times {
+    display: none;
+ }
+
+.button-rules {
+   width: 220px; 
+   text-align: left;
+}

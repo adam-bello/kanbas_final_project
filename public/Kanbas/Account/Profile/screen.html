@@ -1,29 +1,98 @@
-<!DOCTYPE HTML>
+<html>
 <head>
   <title>Profile screen</title>
+    <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Kanbas/styles.css" />
+    <link rel="stylesheet" href="/Kanbas/Navigation/index.css" />
+    <link rel="stylesheet" href="/Kanbas/Courses/Navigation/index.css" />
+    <link rel="stylesheet" href="/Kanbas/Courses/Modules/index.css" />
+    <link rel="stylesheet" href="/Kanbas/Courses/Home/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <table> 
-        <tbody>
-            <tr>
-                <td valign="top">
-                    <ul>
-                        <li><a href="/Kanbas/Account/Profile/screen.html">Account</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="/Kanbas/Courses/Home/screen.html">Courses</a></li>
-                        <li><a href="#">Calendar</a></li>
-                        <li><a href="#">Inbox</a></li>
-                        <li><a href="#">History</a></li>
-                        <li><a href="#">Studio</a></li>
-                        <li><a href="#">Commons</a></li>
-                        <li><a href="#">Help</a></li>
-                    </ul> 
-                </td>
-                <td valign="top">
-                    <ul>
+    <div class="d-block d-md-none" style="padding-bottom: 20px">
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a href="/Kanbas/Navigation/index2.html">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                </a>
+
+                <a class="navbar-brand" href="#">Jose Annunziato's Profile</a>
+
+                <div>
+                    <a class="navbar-toggler" type="button"><i class="fa fa-eye" style="color: white"></i></a>
+                        <a class="navbar-toggler" type="button" 
+                                                  data-bs-toggle="collapse" 
+                                                  href="#collapseID" 
+                                                  role="option" 
+                                                  aria-controls="collapseID" 
+                                                  aria-expanded="false">
+                            <i class="fa fa-angle-down"></i>
+                            <i class="fa fa-times"></i>
+                        </a>
+                </div>
+            </div>
+        </nav>
+        <div class="collapse" id="collapseID">
+            <div class="w-100" style="background-color: white">
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-bullhorn"></i>Notifications</a><br>
+                <a href="/Kanbas/Account/Profile/screen.html" style="color: red; text-decoration: none"><i class="fa fa-user"></i>Profile</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-file-o"></i>Files</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-cog"></i>Settings</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-circle-thin"></i>ePortfolios</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-circle-thin"></i>Shared Contents</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-plug"></i>The Hub</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-plug"></i>Qwickly Course Tools</a><br>
+                <a href="#" style="color: red; text-decoration: none"><i class="fa fa-circle-thin"></i>Global Announcements</a><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex" style="display: flex">
+
+        <div class="d-none d-md-block" style="width: 80px; flex: 0 0 auto">
+            <ul class="wd-kanbas-navigation">
+                <li><a href="http://northeastern.edu"><img class="img-padding" src="/images/Neu.png" width="100%"></a></li>
+                <li class="wd-active"><a href="/Kanbas/Account/Profile/screen.html"><i class="fa fa-user" style="color:grey"></i>Account</a></li>
+                <li><a href="/Kanbas/Dashboard/screen.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+                <li><a href="/Kanbas/Courses/Home/screen.html"><i class="fa fa-book"></i>Courses</a></li>
+                <li><a href="#"><i class="fa fa-calendar"></i>Calendar</a></li>
+                <li><a href="#"><i class="fa fa-inbox"></i><br>Inbox</a></li>
+                <li><a href="#"><i class="fa fa-clock-o"></i>History</a></li>
+                <li><a href="#"><i class="fa fa-television"></i>Studio</a></li>
+                <li><a href="#"><i class="fa fa-sign-out"></i>Commons</a></li>
+                <li><a href="#"><i class="fa fa-question-circle-o"></i><br>Help</a></li>
+            </ul>    
+        </div>
+
+        <div class="d-flex flex-column flex-fill">
+
+            <div class="d-none d-md-block" style="padding-left: 30px; padding-right: 30px;">
+                <div class="d-flex">
+
+                    <div class="flex-fill" style="line-height: 65px; height: 50px; padding-left: 10px" >
+                        <i class="fa fa-bars" style="color: red"></i>&emsp14; &emsp14; &emsp14; 
+                        <a href="#" style="color: black; text-decoration: none">Jose Annunziato's Profile </a>
+                    </div>
+
+                </div>
+                <hr>
+            </div>
+
+
+            <div class="d-flex">
+
+                <div class="d-none d-md-block" style="width: 150px; flex: 0 0 auto">
+                    <ul class="wd-navigation">
                         <li><a href="#">Notifications</a></li>
-                        <li><a href="/Kanbas/Account/Profile/screen.html">Profile</a></li>
+                        <li class="wd-active"><a href="/Kanbas/Account/Profile/screen.html">Profile</a></li>
                         <li><a href="#">Files</a></li>
                         <li><a href="#">Settings</a></li>
                         <li><a href="#">ePortfolios</a></li>
@@ -31,35 +100,44 @@
                         <li><a href="#">The Hub</a></li>
                         <li><a href="#">Qwickly Course Tools</a></li>
                         <li><a href="#">Global Announcements</a></li>
-                      </ul>
-                </td>
-                <td valign="top">
-                    Jose Annunziato's Profile<br><br>
-                    <hr><br>
+                    </ul>
+                </div>
+                
+                <div style="padding-top: 25px">
+                    <i class="fa fa-user" style="color: grey; font-size: 100px; padding-right: 20px; padding-left: 40px"></i>
+                </div>
 
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h1>Jose Annunziato</h1>
-                                    <h2>Contact</h2>
-                                    No registered services, you can add some on the <a style="text-decoration:none" href="#">settings</a> page.
-                                    <h2>Biography</h2>
-                                    Faculty, Software Engineer, AI, Space, and renewable enthusiast.
-                                    <h2>Links</h2>
-                                    <a style="text-decoration:none" href="#">YouTube</a> 
-                                </td>
+                <div class="flex-fill" style="padding-top: 25px">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex">                   
+                                <div class="flex-fill">
+                                    <h3>Jose Annunziato</h3>
+                                </div>
+                                <div style="padding-right: 40px;">
+                                    <a href="/Kanbas/Account/Profile/Edit/screen.html"><button type="button"><i class="fa fa-pencil"></i>Edit Profile</button></a>
+                                </div>
+                            </div>   
+                            <div style="padding-top: 35px">
+                                <h4>Contact</h4>
+                                No registered services, you can add some on the <a style="text-decoration:none; color: red" href="#">settings</a> page.
+                            </div>
+                            <div style="padding-top: 25px">
+                                <h4>Biography</h4>
+                                Faculty, Software Engineer, AI, Space, and renewable enthusiast.
+                            </div>
+                            <div style="padding-top: 25px">
+                                <h4>Links</h4>
+                                <a style="text-decoration:none" href="#">YouTube</a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                <td valign="top">
-                                    <a href="/Kanbas/Account/Profile/Edit/screen.html"><button type="button">Edit Profile</button></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        </div>
+    </div>
+
 </body>
 
-</HTML>
+                        
+
+</html>

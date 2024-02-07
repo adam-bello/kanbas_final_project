@@ -1,0 +1,53 @@
+/* Refers to entire sidebar (left) */
+.wd-kanbas-navigation {
+    background-color: black;
+    list-style: none;
+    padding: 0px;  margin: 0px;
+    width: 80px;
+    height: 100vh;
+    overflow: auto;
+    overscroll-behavior: none;
+    position: fixed;
+}
+
+/* Refers to Northeastern Logo */
+.img-padding {
+    padding-bottom: 0;
+    padding-top:10px;
+}
+
+/* Refers to each list object */
+.wd-kanbas-navigation li {
+    padding: 10px;     margin-bottom: 10px;
+    font-size: 0.8em;  text-align: center;
+}
+
+/* Refers to the li that is active */
+.wd-kanbas-navigation li.wd-active {
+    background-color: white;
+}
+
+/* Refers to the link (dashboard) that is active or selected */
+.wd-kanbas-navigation li.wd-active a {
+    color: red;
+}
+
+/* Refers to each link (all others) */
+.wd-kanbas-navigation a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Refers to the icons */
+.wd-kanbas-navigation a i {
+    color: red;
+    font-size: 2em;
+    margin-bottom: 5px;
+    
+}
+  
+
+.div-rules {
+    padding-left: 45px;
+    padding-bottom: 15px
+}
