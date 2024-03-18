@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { assignments } from "../../Database";
+import db from "../../Database";
 import "./index.css";
 
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -12,6 +12,8 @@ import { GiNotebook } from "react-icons/gi";
 
 
 function Assignments() {
+    const [assignments] = useState(db.assignments);
+
   const { courseId } = useParams();
   const assignmentList = assignments.filter(
     (assignment) => assignment.course === courseId);
