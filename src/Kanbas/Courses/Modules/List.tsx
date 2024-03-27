@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 // import { modules } from "../../Database";
 
@@ -12,7 +12,12 @@ import {
   deleteModule,
   updateModule,
   setModule,
+  setModules,
 } from "./reducer";
+
+import * as client from "./client";
+
+// import { findModulesForCourse, createModule } from "./client";
 
 import { KanbasState
  } from "../../store";
@@ -22,17 +27,42 @@ import { CiCircleCheck } from "react-icons/ci";
 import { IoBanOutline } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 
-import db from "../../Database";
 
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 function ModuleList() {
     const { courseId } = useParams();
+    
+    useEffect(() => {
+        client.findModulesForCourse(courseId)
+          .then((modules) =>
+            dispatch(setModules(modules))
+        );
+      }, [courseId]);
+
     const moduleList = useSelector((state: KanbasState) => state.modulesReducer.modules);
     const module = useSelector((state: KanbasState) => state.modulesReducer.module);
     const dispatch = useDispatch();
-    const [selectedModule, setSelectedModule] = useState(moduleList[0])
+    const [selectedModule, setSelectedModule] = useState(moduleList[0]);
+
+      const handleAddModule = () => {
+        client.createModule(courseId, module).then((module) => {
+          dispatch(addModule(module));
+        });
+      };    
+
+      const handleDeleteModule = (moduleId: string) => {
+        client.deleteModule(moduleId).then((status) => {
+          dispatch(deleteModule(moduleId));
+        });
+      };
+
+      const handleUpdateModule = async () => {
+        const status = await client.updateModule(module);
+        dispatch(updateModule(module));
+      };
+    
 
     return (
     <>
@@ -98,10 +128,18 @@ function ModuleList() {
             <div className="d-flex up-down-adjust-sec"> 
 
                 <div className="mini-tab-second">
-                    <button type="button" className="btn btn-success" onClick={() => dispatch(addModule({ ...module, course: courseId }))}> Add </button>
+                    {/* <button type="button" className="btn btn-success" onClick={() => dispatch(addModule({ ...module, course: courseId }))}> Add </button> */}
+                    <button type="button" className="btn btn-success" 
+                      onClick={handleAddModule}>
+                        Add
+                    </button>
                 </div>
                 <div>
-                    <button type="button" className="btn btn-info" onClick={() => dispatch(updateModule(module))}> Update</button>
+                    {/* <button type="button" className="btn btn-info" onClick={() => dispatch(updateModule(module))}> Update</button> */}
+                    <button type="button" className="btn btn-info" 
+                      onClick={handleUpdateModule}>
+                        Update
+                    </button>
                 </div>
             </div>
 
@@ -119,16 +157,21 @@ function ModuleList() {
                             Edit
                         </button>
             
-                        <button type="button" className="btn btn-danger ms-2" onClick={() => dispatch(deleteModule(module._id))}>
+                        {/* <button type="button" className="btn btn-danger ms-2" onClick={() => dispatch(deleteModule(module._id))}>
                             Delete
+                        </button> */}
+                        <button type="button" className="btn btn-danger ms-2" 
+                            onClick={() => handleDeleteModule(module._id)}>
+                                Delete
                         </button>
 
                         <FaCheckCircle className="text-success ms-2" />
                         <FaPlusCircle className="ms-2" />
                         <FaEllipsisV className="ms-2" />
-                    </span>
+
+                        </span>
                     </div>
-                    {selectedModule._id === module._id && (
+                    {selectedModule && selectedModule._id === module._id && (
                     <ul className="list-group">
                         {module.lessons?.map((lesson : any) => (
                         <li className="list-group-item">

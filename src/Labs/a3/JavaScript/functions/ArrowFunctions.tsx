@@ -14,6 +14,6 @@ function ArrowFunctions() {
   );
 
 }
-export default ArrowFunctions
+export default ArrowFunctions;
 
 

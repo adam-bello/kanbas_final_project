@@ -1,5 +1,7 @@
 import JavaScript from "./JavaScript";
 
+import React from "react";
+
 import PathParameters
  from "./routing/PathParameters";
 
