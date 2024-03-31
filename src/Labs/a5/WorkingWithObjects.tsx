@@ -80,14 +80,6 @@ function WorkingWithObjects() {
             title: e.target.value })}
         value={assignment.title}/>
       <br></br>
-      <a href={`${MODULE_URL}/name/${module.name}`}>
-        Update Name 
-      </a>
-      <br></br>
-      <input type="text"
-        onChange={(e) => setModule({ ...module, name: e.target.value })}
-        value={module.name}/>
-      <br></br>
       <a href={`${ASSIGNMENT_URL}/score/${assignment.score}`}>
         Update Score
       </a>
@@ -107,6 +99,15 @@ function WorkingWithObjects() {
             checked={assignment.completed}/>
             <br></br>
 
+      <a href={`${MODULE_URL}/name/${module.name}`}>
+        Update Name 
+      </a>
+      <br></br>
+      <input type="text"
+        onChange={(e) => setModule({ ...module, name: e.target.value })}
+        value={module.name}/>
+      <br></br>
+      
       <a href={`${MODULE_URL}/description/${module.description}`}>
         Update Module Description 
       </a>
