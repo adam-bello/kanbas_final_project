@@ -21,6 +21,8 @@ import React from "react";
 
 import "./index.css";
 
+import Account from "./Account";
+
 const API_BASE = process.env.REACT_APP_API_BASE;
 
 function Kanbas() {
@@ -86,8 +88,8 @@ function Kanbas() {
             </div>
             <div className="d-flex flex-column flex-fill">
                 <Routes>
-                    <Route path="/" element={<Navigate to="Dashboard" />} />
-                    <Route path="Account" element={<h1>Account</h1>} />
+                    <Route path="/Account/*" element={<Account />} />
+                    {/* <Route path="/" element={<Navigate to="Dashboard" />} /> */}
                     <Route path="Dashboard" element={<Dashboard
                                                         courses={courses}
                                                         course={course}
