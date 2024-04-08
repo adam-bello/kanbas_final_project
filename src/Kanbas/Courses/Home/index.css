@@ -1,0 +1,66 @@
+.padTop {
+    padding-top: 10px;
+}
+
+.padTop2{
+    padding-top: 20px;
+}
+
+.statusBlock {
+    padding-right: 30px; 
+    width: 250px;
+}
+
+.padTopSecond {
+    padding-top: 15px;
+}
+
+.padTopThird {
+    padding-top: 3px;
+}
+
+.toDoStyle {
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+    text-align: center;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.textAdjust {
+    font-size: x-small;
+}
+
+.circleStyle {
+    padding-top: 7px; 
+    padding-right: 10px; 
+    color: red;
+}
+
+.colorBlack {
+    color: black;
+}
+
+.linkDecor {
+    color: red; 
+    text-decoration: none;
+}
+ 
+.padLeft {
+    padding-left: 7px;
+}
+
+.padBottom20{
+    padding-bottom: 20px;
+}
+
+.padRight {
+    padding-right: 10px;
+}
+
+.button-rules {
+    width: 220px; 
+    text-align: left;
+ }

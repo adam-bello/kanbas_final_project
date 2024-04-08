@@ -1,0 +1,25 @@
+.padBot {
+    padding-bottom: 20px;
+}
+
+
+.colorWhite {
+    background-color: white;
+}
+
+a[aria-expanded=true] .angleDown {
+    display: none;
+ }
+
+ a[aria-expanded=false] .angleTimes {
+    display: none;
+ }
+
+ .div-check {
+    display: flex;
+ }
+
+ .commonDiv {
+    flex: 0 0 auto;
+    width: 80px;
+ }

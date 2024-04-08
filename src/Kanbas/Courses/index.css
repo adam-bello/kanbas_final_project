@@ -1,0 +1,32 @@
+.breadCrumbStyle {
+    padding-right: 25px;
+    color: red;
+}
+
+.paddingStyle {
+    padding-right: 10px;
+}
+
+.linkDec {
+    text-decoration: none;
+}
+
+.breadPad {
+    padding-left: 30px; 
+    padding-right: 30px;
+}
+
+.padding-overall {
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.padding-sides {
+    padding-right: 7px;
+    padding-left: 7px;
+}
+
+.pad-ri {
+    padding-right: 10px;
+}
