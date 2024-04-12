@@ -81,7 +81,7 @@ function Quizzes() {
                                     <div className="d-flex">
                                         <div className="adjustPos">
                                            <a style={{color: "black"}}> {quiz.availability} </a> &nbsp; | &nbsp;
-                                           <b>Due</b> {quiz.due_date} &nbsp; | &nbsp; {quiz.points} pts &nbsp; | &nbsp; {quiz.questions} Questions
+                                           <b>Due</b> {quiz.due_date} &nbsp; | &nbsp; {quiz.points} pts &nbsp; | &nbsp; {quiz.numQuestions} Questions
                                         </div>
                                     </div>
                                 </div>
