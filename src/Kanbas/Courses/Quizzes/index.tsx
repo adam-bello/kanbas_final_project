@@ -1,28 +1,80 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBan, FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
-import db from "../../Database";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./index.css";
 
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import { FaEllipsisVertical, FaRocket } from "react-icons/fa6";
 import { IoIosAdd } from "react-icons/io";
+import { KanbasState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import * as client from "./client"; 
+import axios from "axios";
 
 function Quizzes() {
-    const [quizzes, setQuizzes] = useState(db.quizzes);
-
     const { courseId } = useParams();
-    const quizList = quizzes.filter(
-        (quiz) => quiz.course === courseId);
-        
-    const togglePublicationStatus = (quizId: string) => {
-        setQuizzes((prevQuizzes) =>
-        prevQuizzes.map((quiz) =>
-            quiz._id === quizId ? { ...quiz, published: !quiz.published } : quiz
-        )
-        );
-    };
+
+    const API_BASE = process.env.REACT_APP_API_BASE;
+
+    const [quizzes, setQuizzes] = useState<any[]>([]);
+    const [quiz, setQuiz] = useState({
+        _id: "1234",
+        name: "New quiz 123 from the default", 
+        description: "New Description", 
+        points: 25,
+        numQuestions: 0,
+        startDate: "01-10-2024",
+        dueDate: "01-12-2024",
+        availableUntil: "01-14-2024",
+        published: false,
+        assignedTo: "Students",
+        quizType: "Graded Quiz",
+        assignmentGroup: "Quizzes",
+        shuffle: true,
+        timeLimit: 20,
+        multipleAttempts: false,
+        showCorrectAnswers: false,
+        accessCode: '',
+        oneQuestionATime: true,
+        webcamRequired: false,
+        lockQuestions: false,
+        course: "RS101",
+    })
+    
+    const QUIZZES_API = `${API_BASE}/api/courses/${courseId}/quizzes`;
+    const QUIZZES_API_2 = `${API_BASE}/api/quizzes`;
+
+    const addNewQuiz = async () => {
+        const response = await axios.post(QUIZZES_API, quiz);
+        setQuizzes([...quizzes, { ...quiz, _id: response.data._id }]);
+    }
+
+    const deleteQuiz = async (quizId: String) => {
+        const response = await axios.delete(`${QUIZZES_API_2}/${quizId}`);
+        setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId))
+    }
+
+    const updateQuiz = async (quiz:any) => {
+        console.log(quiz)
+        const response = await axios.put(`${QUIZZES_API_2}/${quiz._id}`, {...quiz, _id: quiz._id, published: !quiz.published});
+        setQuizzes(quizzes.map((q) => {
+            if (q._id === quiz._id) {
+                return {...q, published: !q.published};
+            }
+            return q;
+        }))
+    }
+
+
+    const findAllQuizzes = async () => {
+        const response = await axios.get(QUIZZES_API);
+        setQuizzes(response.data);
+    }
+
+    useEffect(() => {
+        findAllQuizzes();
+    }, [])
     
 
   return (
@@ -42,7 +94,10 @@ function Quizzes() {
                 <div className="d-flex buttonEnd2">   
 
                     <div className="padBoth">
-                        <button type="button" className="btn btn-danger btn-sm"><IoIosAdd />Quiz</button>
+                        <button type="button" className="btn btn-danger btn-sm"
+                            onClick={addNewQuiz}>
+                            <IoIosAdd/>Quiz
+                        </button>
                     </div>     
 
                     <div>
@@ -68,7 +123,7 @@ function Quizzes() {
                         </span>
                     </div>
                     <ul className="list-group">
-                        {quizList.map((quiz) => (
+                        {quizzes.map((quiz) => (
                         <li className="list-group-item">
                             <div className="d-flex">
                                 <div className="icon-pad buttonEnd2 additionPad">
@@ -76,26 +131,26 @@ function Quizzes() {
                                 </div>
                                 <div className="d-flex flex-column flex-fill">
                                     <div>
-                                        <b><Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} className="link-style" style={{color: "black"}}>{quiz.title}</Link></b>
+                                        <b><Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} className="link-style" style={{color: "black"}}>{quiz.name}</Link></b>
                                     </div>
                                     <div className="d-flex">
                                         <div className="adjustPos">
                                            <a style={{color: "black"}}> {quiz.availability} </a> &nbsp; | &nbsp;
-                                           <b>Due</b> {quiz.due_date} &nbsp; | &nbsp; {quiz.points} pts &nbsp; | &nbsp; {quiz.numQuestions} Questions
+                                           <b>Due</b> {quiz.dueDate} &nbsp; | &nbsp; {quiz.points} pts &nbsp; | &nbsp; {quiz.numQuestions} Questions
                                         </div>
                                     </div>
                                 </div>
                                 
                                     <span className="float-end icon-pad">
-                                            
-                                        {quiz.published ? (
-                                            <span onClick={() => togglePublicationStatus(quiz._id)}>
+                                        {quiz && quiz.published && quiz._id !== "1234" && (
+                                            <span onClick={(event) => {event.preventDefault(); setQuiz(quiz); updateQuiz(quiz)}} >
                                             <span role="img" aria-label="published">
-                                                <FaCheckCircle/>
+                                                <FaCheckCircle style={{ color: "green"}}/>
                                             </span>
                                             </span>
-                                        ) : (
-                                            <span onClick={() => togglePublicationStatus(quiz._id)}>
+                                        )}
+                                        {quiz && !quiz.published && quiz._id !== "1234" && (
+                                            <span onClick={(event) => {event.preventDefault(); setQuiz(quiz); updateQuiz(quiz)}} >
                                             <span role="img" aria-label="unpublished">
                                                 <FaBan/>
                                             </span>
@@ -108,9 +163,23 @@ function Quizzes() {
                                             </button>
 
                                             <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
-                                                <li><a className="dropdown-item" href="#">Edit</a></li>
-                                                <li><a className="dropdown-item" href="#">Delete</a></li>
-                                                <li><a className="dropdown-item" href="#">Publish</a></li>
+                                                <li>
+                                                    <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} className="link-style" style={{color: "black"}}><a className="dropdown-item">
+                                                        <button className="btn ms-2"> Edit </button>
+                                                    </a></Link>
+                                                </li>
+                                                <li>
+                                                    <a className="dropdown-item">
+                                                        <button className="btn ms-2" onClick={() => deleteQuiz(quiz._id)} > Delete </button>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="dropdown-item">
+                                                        <button className="btn ms-2" onClick={() => updateQuiz(quiz)} >
+                                                            {quiz.published ? "Unpublish" : "Publish"}
+                                                        </button>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </span>

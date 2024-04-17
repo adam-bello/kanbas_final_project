@@ -5,13 +5,81 @@ import { FaEllipsis, FaEllipsisVertical } from "react-icons/fa6";
 import { PiTextAUnderline } from "react-icons/pi";
 import { RxDividerVertical } from "react-icons/rx";
 import { CgAdd, CgCodeSlash } from "react-icons/cg";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Details() {
+    // <input value={course.name} className="form-control"
+    //          onChange={(e) => setQuiz({ ...quiz, name: e.target.value }) } />
+
+    const API_BASE = process.env.REACT_APP_API_BASE;
+
+    var { courseId, quizId } = useParams();
+
+    const [quizzes, setQuizzes] = useState<any[]>([]);
+    const [quiz, setQuiz] = useState({
+        _id: "1234",
+        name: "New quiz 123", 
+        description: "New Description", 
+        points: 25,
+        numQuestions: 0,
+        startDate: "01-10-2024",
+        dueDate: "01-12-2024",
+        availableUntil: "01-14-2024",
+        published: false,
+        assignedTo: "Students",
+        quizType: "Graded Quiz",
+        assignmentGroup: "Quizzes",
+        shuffle: true,
+        timeLimit: 20,
+        multipleAttempts: false,
+        showCorrectAnswers: false,
+        accessCode: '',
+        oneQuestionATime: true,
+        webcamRequired: false,
+        lockQuestions: false,
+        course: "RS101"
+    })
+    
+    const QUIZZES_API = `${API_BASE}/api/quizzes/${quizId}`;
+    const QUIZZES_API_2 = `${API_BASE}/api/quizzes`;
+
+    const updateQuiz = async () => {
+        const response = await axios.put(
+            `${QUIZZES_API_2}/${quiz._id}`,
+          quiz
+        );
+        setQuizzes(
+          quizzes.map((q) => {
+            if (q._id === quiz._id) {
+              return quiz;
+            } else {
+              return q;
+            }
+          })
+        );
+      };
+
+    const findQuiz = async () => {
+        const response = await axios.get(QUIZZES_API);
+        setQuiz(response.data);
+    }
+
+    useEffect(() => {
+        findQuiz();
+    }, [])
 
     return(
         <>
 
-        <input type="text" className="form-control" placeholder="enter a quiz name" value="current quiz name"></input>
+        <input 
+            type="text" 
+            className="form-control" 
+            placeholder="enter a quiz name" 
+            value={quiz.name} 
+            onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}>
+        </input>
 
         <h3>Quiz Instructions</h3>
 
@@ -83,7 +151,12 @@ function Details() {
         </div>
         
         <div>
-            <textarea className="full-width-input bigger-height" placeholder="New Description"></textarea>
+            <textarea 
+                className="full-width-input bigger-height" 
+                placeholder="Enter a new Description" 
+                value={quiz.description} 
+                onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}>   
+            </textarea>
         </div>
 
         <div className="d-flex">
@@ -115,14 +188,48 @@ function Details() {
                     Quiz Type : &nbsp;
                 </div>
                 <div>
-                    <select>
-                        <option>Graded Quiz</option>
+                { quiz.quizType === 'Graded Quiz' ? 
+                    <select onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}>
+                        <option selected>Graded Quiz</option>
                         <option>Practice Quiz</option>
                         <option>Graded Survey</option>
                         <option>Ungraded Survey</option>
                     </select>
+                :
+                quiz.quizType === 'Practice Quiz' ?
+                    <select onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}>
+                        <option>Graded Quiz</option>
+                        <option selected>Practice Quiz</option>
+                        <option>Graded Survey</option>
+                        <option>Ungraded Survey</option>
+                    </select>
+                :
+                quiz.quizType === 'Graded Survey' ?
+                    <select onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}>
+                        <option>Graded Quiz</option>
+                        <option>Practice Quiz</option>
+                        <option selected>Graded Survey</option>
+                        <option>Ungraded Survey</option>
+                    </select>
+                :
+                    <select onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}>
+                        <option>Graded Quiz</option>
+                        <option >Practice Quiz</option>
+                        <option>Graded Survey</option>
+                        <option selected>Ungraded Survey</option>
+                    </select>
+                }   
                 </div>
             </div>
+        </div>
+        <div>
+            Points: 
+            <input 
+                type="number" 
+                placeholder="enter num points" 
+                value={quiz.points} 
+                onChange={(e) => setQuiz({ ...quiz, points: parseInt(e.target.value) })}>
+            </input>
         </div>
 
         <div>
@@ -131,12 +238,37 @@ function Details() {
                     Assignment Group : &nbsp;
                 </div>
                 <div>
-                    <select>
-                        <option>Quizzes</option>
+                { quiz.assignmentGroup === 'Quizzes' ? 
+                    <select onChange={(e) => setQuiz({ ...quiz, assignmentGroup: e.target.value })}>
+                        <option selected>Quizzes</option>
                         <option>Exams</option>
                         <option>Assignments</option>
                         <option>Project</option>
                     </select>
+                :
+                quiz.assignmentGroup === 'Exams' ?
+                    <select onChange={(e) => setQuiz({ ...quiz, assignmentGroup: e.target.value })}>
+                        <option>Quizzes</option>
+                        <option selected>Exams</option>
+                        <option>Assignments</option>
+                        <option>Project</option>
+                    </select>
+                :
+                quiz.assignmentGroup === 'Assignments' ?
+                    <select onChange={(e) => setQuiz({ ...quiz, assignmentGroup: e.target.value })}>
+                        <option>Quizzes</option>
+                        <option>Exams</option>
+                        <option selected>Assignments</option>
+                        <option>Project</option>
+                    </select>
+                :
+                    <select onChange={(e) => setQuiz({ ...quiz, assignmentGroup: e.target.value })}>
+                        <option>Quizzes</option>
+                        <option>Exams</option>
+                        <option>Assignments</option>
+                        <option selected>Project</option>
+                    </select>
+                }
                 </div>
             </div>
         </div>
@@ -146,23 +278,52 @@ function Details() {
         </div>
         <div>
             <label>
-                <input checked={true} type="checkbox"/> Shuffle Answers
+                <input checked={quiz.shuffle} type="checkbox" onChange={(e) => setQuiz({ ...quiz, shuffle: e.target.checked })}/> Shuffle Answers
             </label>
         </div>
         <div className="d-flex">
             <div>
-                <label>
-                    <input checked={true} type="checkbox"/> Time Limit
-                </label>
-                &nbsp; &nbsp;
-            </div>
-            <div>
-                <input type="number" placeholder="enter a time limit" defaultValue="20"></input> Minutes
+                Time Limit: 
+                <input 
+                type="number" 
+                placeholder="enter a time limit" 
+                value={quiz.timeLimit}
+                onChange={(e) => setQuiz({ ...quiz, timeLimit: parseInt(e.target.value) })}>
+                </input> Minutes
             </div>
         </div>
         <div>
             <label>
-                <input checked={false} type="checkbox"/> Allow Multiple Attempts
+                <input checked={quiz.multipleAttempts} type="checkbox" onChange={(e) => setQuiz({ ...quiz, multipleAttempts: e.target.checked })}/> Allow Multiple Attempts
+            </label>
+        </div>
+        <div>
+            <label>
+                <input checked={quiz.showCorrectAnswers} type="checkbox" onChange={(e) => setQuiz({ ...quiz, showCorrectAnswers: e.target.checked })}/> Show Correct Answers
+            </label>
+        </div>
+        <div>
+            Access Code: 
+            <input 
+                type="text" 
+                placeholder="enter access code" 
+                value={quiz.accessCode} 
+                onChange={(e) => setQuiz({ ...quiz, accessCode: e.target.value })}>
+            </input>
+        </div>
+        <div>
+            <label>
+                <input checked={quiz.oneQuestionATime} type="checkbox" onChange={(e) => setQuiz({ ...quiz, oneQuestionATime: e.target.checked })}/> One Question At a Time
+            </label>
+        </div>
+        <div>
+            <label>
+                <input checked={quiz.webcamRequired} type="checkbox" onChange={(e) => setQuiz({ ...quiz, webcamRequired: e.target.checked })}/> Webcam Required
+            </label>
+        </div>
+        <div>
+            <label>
+                <input checked={quiz.lockQuestions} type="checkbox" onChange={(e) => setQuiz({ ...quiz, lockQuestions: e.target.checked })}/> Lock Questions After Answering
             </label>
         </div>
         <div>
@@ -181,7 +342,7 @@ function Details() {
                         Due
                     </div>
                     <div>
-                        <input type="date"/>
+                        <input type="text" value={quiz.dueDate}/>
                     </div>
                     <div className="d-flex">
                         <div>
@@ -201,7 +362,25 @@ function Details() {
                 </div>
             </div>
         </div>
-        
+
+        <hr></hr>
+
+        <div className="d-flex">
+            <div className="flex-fill">
+                <label>
+                    <input checked={false} type="checkbox"/> Notify users this quiz has changed
+                </label>
+            </div>
+            <div>
+                <button type="button" className="btn btn-light"> Cancel </button> 
+            </div>
+            <div>
+                <button type="button" className="btn btn-light"> Save & Publish </button> 
+            </div>
+            <div>
+                <button type="button" className="btn btn-danger" onClick={updateQuiz}> Save </button> 
+            </div>
+        </div>
         </>
     )
 }
