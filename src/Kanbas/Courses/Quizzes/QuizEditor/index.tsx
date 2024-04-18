@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router";
 import Nav from "../Nav";
 import Details from "./details";
-import Questions from "./questions";
+import Questions from "./Questions";
 import "./index.css";
 import { FaEllipsisVertical } from "react-icons/fa6";
 
