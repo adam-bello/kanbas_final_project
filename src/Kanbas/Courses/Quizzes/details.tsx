@@ -66,7 +66,6 @@ function QuizDetails() {
     return(
 
     <>
-    {console.log(quiz)}
     <div className="flex-fill distNav">
         <div className="d-flex flex-column spaceTop">
 
