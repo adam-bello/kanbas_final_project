@@ -5,7 +5,8 @@ import { FaEllipsis, FaEllipsisVertical } from "react-icons/fa6";
 import { PiTextAUnderline } from "react-icons/pi";
 import { RxDividerVertical } from "react-icons/rx";
 import { CgAdd, CgCodeSlash } from "react-icons/cg";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -14,6 +15,12 @@ function Details() {
     //          onChange={(e) => setQuiz({ ...quiz, name: e.target.value }) } />
 
     const API_BASE = process.env.REACT_APP_API_BASE;
+
+    const navigate = useNavigate();
+
+    const publishAndSave = async () => {
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+    }
 
     var { courseId, quizId } = useParams();
 
@@ -60,6 +67,19 @@ function Details() {
           })
         );
       };
+
+      const updateQuizPublished = async (quiz:any) => {
+        if (quiz.published) {
+            return;
+        }
+        const response = await axios.put(`${QUIZZES_API_2}/${quiz._id}`, {...quiz, _id: quiz._id, published: !quiz.published});
+        setQuizzes(quizzes.map((q) => {
+            if (q._id === quiz._id) {
+                return {...q, published: !q.published};
+            }
+            return q;
+        }))
+    }
 
     const findQuiz = async () => {
         const response = await axios.get(QUIZZES_API);
@@ -372,13 +392,17 @@ function Details() {
                 </label>
             </div>
             <div>
-                <button type="button" className="btn btn-light"> Cancel </button> 
+                <Link to={`/Kanbas/Courses/${courseId}/Quizzes`} className="link-style" style={{color: "black"}}>
+                    <button type="button" className="btn btn-light"> Cancel </button> 
+                </Link>
             </div>
             <div>
-                <button type="button" className="btn btn-light"> Save & Publish </button> 
+                <button type="button" className="btn btn-light" onClick={(event) => {event.preventDefault(); setQuiz(quiz); updateQuiz(); updateQuizPublished(quiz); publishAndSave();}}> Save & Publish </button>
             </div>
             <div>
-                <button type="button" className="btn btn-danger" onClick={updateQuiz}> Save </button> 
+                <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} className="link-style" style={{color: "black"}}>
+                    <button type="button" className="btn btn-danger" onClick={updateQuiz}> Save </button> 
+                </Link>
             </div>
         </div>
         </>
