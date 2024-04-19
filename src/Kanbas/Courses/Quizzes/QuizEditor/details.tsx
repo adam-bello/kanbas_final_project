@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import React from "react";
+
 function Details() {
     // <input value={course.name} className="form-control"
     //          onChange={(e) => setQuiz({ ...quiz, name: e.target.value }) } />

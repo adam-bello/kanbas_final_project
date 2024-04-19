@@ -5,6 +5,7 @@ import Questions from "./Questions";
 import "./index.css";
 import { FaEllipsisVertical } from "react-icons/fa6";
 
+import React from "react";
 
 
 function QuizEditor() {
