@@ -44,7 +44,6 @@ function QuizDetails() {
     const QUIZZES_API_2 = `${API_BASE}/api/quizzes`;
 
     const updateQuiz = async (quiz:any) => {
-        console.log(quiz)
         const response = await axios.put(`${QUIZZES_API_2}/${quiz._id}`, {...quiz, _id: quiz._id, published: !quiz.published});
         setQuizzes(quizzes.map((q) => {
             if (q._id === quiz._id) {
@@ -75,7 +74,7 @@ function QuizDetails() {
                     
                     {quiz.published ?  
                     <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => {updateQuiz(quiz) ; quiz.published = !quiz.published}}><FaBan style={{ color: "red" }}/> Unpublish </button>
-                    :  <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => {updateQuiz(quiz) ; quiz.published = !quiz.published}}><CiCircleCheck style={{ color: "green" }}/> Published </button>}
+                    :  <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => {updateQuiz(quiz) ; quiz.published = !quiz.published}}><CiCircleCheck style={{ color: "green" }}/> Publish </button>}
                 </div>
                 <div className="padBoth">
                     <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}/QuizPreview`} className="link-style" style={{color: "black"}}>
